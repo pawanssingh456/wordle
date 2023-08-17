@@ -4,18 +4,36 @@ import GameModel, { Game } from '../models/Game';
 import UserModel from '../models/User';
 
 // Function to generate a new word every 12 hours (you can replace this logic with your own)
-const generateWord = () => {
-  const words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi'];
-  return words[Math.floor(Math.random() * words.length)];
+const generateWord = async () => {
+  const word = await fetch('https://wordle-answers-solutions.p.rapidapi.com/today', {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': 'd6a70ec010msha4334ca70a8ab56p1a65b8jsn30b9f54e57ea',
+      'X-RapidAPI-Host': 'wordle-answers-solutions.p.rapidapi.com'
+    },
+  })
+  const result = await word.json()
+  return result.today
 };
+
+const findWord = async () => {
+
+  const result = await GameModel.findOne({});
+
+  return result?.word
+}
 
 export const createGame = async (_req: Request, res: Response) => {
   try {
-    // Generate a new word every 12 hours (for simplicity, this is done on every request; you should set up a cron job)
-    const word = generateWord();
-    const attempts = 6;
-    const newGame: Game = await GameModel.create({ word, attempts });
-    res.status(201).json(newGame);
+
+    let word = await findWord()
+
+    if(!word) {
+      word = await generateWord();
+      const newGame: Game = await GameModel.create({ word });
+    }
+
+    res.status(201).json(word);
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }

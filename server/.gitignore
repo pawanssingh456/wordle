@@ -12,6 +12,7 @@
 /build
 /dist
 .env
+tokens.json
 
 # misc
 .DS_Store
