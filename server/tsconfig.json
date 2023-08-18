@@ -3,12 +3,12 @@
       "target": "es6",
       "module": "commonjs",
       "outDir": "./dist",
-      "rootDir": "./src",
+      "rootDir": "/",
       "strict": true,
       "esModuleInterop": true,
       "useUnknownInCatchVariables": false
     },
-    "include": ["src/**/*.ts"],
+    "include": ["./api/*.ts"],
     "exclude": ["node_modules", "dist"]
   }
   

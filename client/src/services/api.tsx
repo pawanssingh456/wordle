@@ -1,5 +1,5 @@
 // api.ts
-const BASE_URL = 'http://localhost:3001/api';
+const BASE_URL = 'https://wordle-backend-pi.vercel.app/';
 
 const defaultHeaders = {
     'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const apiGetTodaysWord = async (endpoint: string) => {
     return response.json();
 };
 
-export const apiPost = async (endpoint: string, data: any) => {
+export const apiPost = async (endpoint: string, data: unknown) => {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: getHeaders(),
