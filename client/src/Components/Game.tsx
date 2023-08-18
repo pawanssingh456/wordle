@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 const todayWord = "BLAME"
 function Game() {
+    const [found, setFound] = useState(false)
     const [counter, setCounter] = useState(0)
     const [row1, setRow1] = useState<string[]>([]);
     const [eventOccurred1, setEventOccurred1] = useState(false);
@@ -18,93 +19,106 @@ function Game() {
     const [eventOccurred6, setEventOccurred6] = useState(false);
 
     function updateValue(element: string) {
-        let dataToSetOn;
-        let counterIncrement = 1;
+        if (!found) {
+            let dataToSetOn;
+            let counterIncrement = 1;
 
-        if (counter >= 0 && counter < 5 && !eventOccurred1) {
-            dataToSetOn = setRow1;
-        } else if (counter >= 5 && counter < 10 && !eventOccurred2) {
-            dataToSetOn = setRow2;
-        } else if (counter >= 10 && counter < 15 && !eventOccurred3) {
-            dataToSetOn = setRow3;
-        } else if (counter >= 15 && counter < 20 && !eventOccurred4) {
-            dataToSetOn = setRow4;
-        } else if (counter >= 20 && counter < 25 && !eventOccurred5) {
-            dataToSetOn = setRow5;
-        } else if (counter >= 25 && counter < 30 && !eventOccurred6) {
-            dataToSetOn = setRow6;
-        } else {
-            counterIncrement = 0;
-        }
+            if (counter >= 0 && counter < 5 && !eventOccurred1) {
+                dataToSetOn = setRow1;
+            } else if (counter >= 5 && counter < 10 && !eventOccurred2) {
+                dataToSetOn = setRow2;
+            } else if (counter >= 10 && counter < 15 && !eventOccurred3) {
+                dataToSetOn = setRow3;
+            } else if (counter >= 15 && counter < 20 && !eventOccurred4) {
+                dataToSetOn = setRow4;
+            } else if (counter >= 20 && counter < 25 && !eventOccurred5) {
+                dataToSetOn = setRow5;
+            } else if (counter >= 25 && counter < 30 && !eventOccurred6) {
+                dataToSetOn = setRow6;
+            } else {
+                counterIncrement = 0;
+            }
 
-        setCounter(counter + counterIncrement)
+            setCounter(counter + counterIncrement)
 
-        if (dataToSetOn) {
-            return dataToSetOn(oldArray => [...oldArray, element]);
+            if (dataToSetOn) {
+                return dataToSetOn(oldArray => [...oldArray, element]);
+            }
         }
     }
 
 
     function clearValue() {
-        let dataToRemove;
+        if (!found) {
+            let dataToRemove;
 
-        if (counter >= 0 && counter <= 5 && !eventOccurred1) {
-            dataToRemove = setRow1;
-            // counter--;
-            setCounter(counter - 1)
-        } else if (counter >= 6 && counter <= 10 && !eventOccurred2) {
-            dataToRemove = setRow2;
-            setCounter(counter - 1)
-        } else if (counter >= 11 && counter <= 15 && !eventOccurred3) {
-            dataToRemove = setRow3;
-            setCounter(counter - 1)
-        } else if (counter >= 16 && counter <= 20 && !eventOccurred4) {
-            dataToRemove = setRow4;
-            setCounter(counter - 1)
-        } else if (counter >= 21 && counter <= 25 && !eventOccurred5) {
-            dataToRemove = setRow5;
-            setCounter(counter - 1)
-        } else if (counter >= 26 && counter <= 31 && !eventOccurred6) {
-            dataToRemove = setRow6;
-            setCounter(counter - 1)
-        }
+            if (counter >= 0 && counter <= 5 && !eventOccurred1) {
+                dataToRemove = setRow1;
+                // counter--;
+                setCounter(counter - 1)
+            } else if (counter >= 6 && counter <= 10 && !eventOccurred2) {
+                dataToRemove = setRow2;
+                setCounter(counter - 1)
+            } else if (counter >= 11 && counter <= 15 && !eventOccurred3) {
+                dataToRemove = setRow3;
+                setCounter(counter - 1)
+            } else if (counter >= 16 && counter <= 20 && !eventOccurred4) {
+                dataToRemove = setRow4;
+                setCounter(counter - 1)
+            } else if (counter >= 21 && counter <= 25 && !eventOccurred5) {
+                dataToRemove = setRow5;
+                setCounter(counter - 1)
+            } else if (counter >= 26 && counter <= 31 && !eventOccurred6) {
+                dataToRemove = setRow6;
+                setCounter(counter - 1)
+            }
 
-        if ((counter === -1 || counter === 1) && dataToRemove === setRow1) {
-            setCounter(0)
-        }
+            if ((counter === -1 || counter === 1) && dataToRemove === setRow1) {
+                setCounter(0)
+            }
 
-        if (dataToRemove) {
-            return dataToRemove(prevArray => prevArray.slice(0, -1));
+            if (dataToRemove) {
+                return dataToRemove(prevArray => prevArray.slice(0, -1));
+            }
         }
     }
 
 
     function checkWord() {
-        const rows = [null, row1, row2, row3, row4, row5, row6];
-        const eventOccureds = [null, setEventOccurred1, setEventOccurred2, setEventOccurred3, setEventOccurred4, setEventOccurred5, setEventOccurred6];
-        const row = Math.floor(counter / 5);
-        const rowToCheck = rows[row];
-        const eventOccured = eventOccureds[row]
+        if (!found) {
+            const rows = [null, row1, row2, row3, row4, row5, row6];
+            const eventOccureds = [null, setEventOccurred1, setEventOccurred2, setEventOccurred3, setEventOccurred4, setEventOccurred5, setEventOccurred6];
+            const row = Math.floor(counter / 5);
+            const rowToCheck = rows[row];
+            const eventOccured = eventOccureds[row]
 
-        const result = rowToCheck?.map((item, index) => {
-            if (todayWord[index] === item) {
-                return { item: "correct" };
-            } else if (todayWord.includes(item)) {
-                return { item: "present" };
-            } else {
-                return { item: "absent" };
+            let isAllCorrect = 0
+
+            const result = rowToCheck?.map((item, index) => {
+                if (todayWord[index] === item) {
+                    isAllCorrect++;
+                    return { item: "correct" };
+                } else if (todayWord.includes(item)) {
+                    return { item: "present" };
+                } else {
+                    return { item: "absent" };
+                }
+            }) || [];
+
+            result.forEach((item, index) => {
+                const element = document.getElementById(`r${row}${index + 1}`);
+                if (element) {
+                    element.setAttribute("data-state", item.item);
+                }
+            });
+
+            if (eventOccured) {
+                eventOccured(true)
             }
-        }) || [];
 
-        result.forEach((item, index) => {
-            const element = document.getElementById(`r${row}${index + 1}`);
-            if (element) {
-                element.setAttribute("data-state", item.item);
+            if (isAllCorrect === 5) {
+                setFound(true)
             }
-        });
-
-        if (eventOccured) {
-            eventOccured(true)
         }
     }
 
