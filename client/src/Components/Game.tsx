@@ -97,18 +97,22 @@ function Game() {
             const result = rowToCheck?.map((item, index) => {
                 if (todayWord[index] === item) {
                     isAllCorrect++;
-                    return { item: "correct" };
+                    return { value: "correct", letter: item };
                 } else if (todayWord.includes(item)) {
-                    return { item: "present" };
+                    return { value: "present", letter: item };
                 } else {
-                    return { item: "absent" };
+                    return { value: "absent", letter: item };
                 }
             }) || [];
 
             result.forEach((item, index) => {
                 const element = document.getElementById(`r${row}${index + 1}`);
+                const letter = document.getElementById(item.letter);
                 if (element) {
-                    element.setAttribute("data-state", item.item);
+                    element.setAttribute("data-state", item.value);
+                }
+                if (letter) {
+                    letter.setAttribute("data-state", item.value);
                 }
             });
 
@@ -213,41 +217,41 @@ function Game() {
             <div className='Keyboard'>
                 <div className='Keyboard-Row'>
                     <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ paddingBottom: "10px" }}>
-                        <Button onClick={() => { updateValue("Q") }}>Q</Button>
-                        <Button onClick={() => { updateValue("W") }}>W</Button>
-                        <Button onClick={() => { updateValue("E") }}>E</Button>
-                        <Button onClick={() => { updateValue("R") }}>R</Button>
-                        <Button onClick={() => { updateValue("T") }}>T</Button>
-                        <Button onClick={() => { updateValue("Y") }}>Y</Button>
-                        <Button onClick={() => { updateValue("U") }}>U</Button>
-                        <Button onClick={() => { updateValue("I") }}>I</Button>
-                        <Button onClick={() => { updateValue("O") }}>O</Button>
-                        <Button onClick={() => { updateValue("P") }}>P</Button>
+                        <Button onClick={() => { updateValue("Q") }} id="Q" data-state="empty">Q</Button>
+                        <Button onClick={() => { updateValue("W") }} id="W" data-state="empty">W</Button>
+                        <Button onClick={() => { updateValue("E") }} id="E" data-state="empty">E</Button>
+                        <Button onClick={() => { updateValue("R") }} id="R" data-state="empty">R</Button>
+                        <Button onClick={() => { updateValue("T") }} id="T" data-state="empty">T</Button>
+                        <Button onClick={() => { updateValue("Y") }} id="Y" data-state="empty">Y</Button>
+                        <Button onClick={() => { updateValue("U") }} id="U" data-state="empty">U</Button>
+                        <Button onClick={() => { updateValue("I") }} id="I" data-state="empty">I</Button>
+                        <Button onClick={() => { updateValue("O") }} id="O" data-state="empty">O</Button>
+                        <Button onClick={() => { updateValue("P") }} id="P" data-state="empty">P</Button>
                     </ButtonGroup>
                 </div>
                 <div className='Keyboard-Row'>
                     <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ paddingBottom: "10px" }}>
-                        <Button onClick={() => { updateValue("A") }}>A</Button>
-                        <Button onClick={() => { updateValue("S") }}>S</Button>
-                        <Button onClick={() => { updateValue("D") }}>D</Button>
-                        <Button onClick={() => { updateValue("F") }}>F</Button>
-                        <Button onClick={() => { updateValue("G") }}>G</Button>
-                        <Button onClick={() => { updateValue("H") }}>H</Button>
-                        <Button onClick={() => { updateValue("J") }}>J</Button>
-                        <Button onClick={() => { updateValue("K") }}>K</Button>
-                        <Button onClick={() => { updateValue("L") }}>L</Button>
+                        <Button onClick={() => { updateValue("A") }} id="A" data-state="empty">A</Button>
+                        <Button onClick={() => { updateValue("S") }} id="S" data-state="empty">S</Button>
+                        <Button onClick={() => { updateValue("D") }} id="D" data-state="empty">D</Button>
+                        <Button onClick={() => { updateValue("F") }} id="F" data-state="empty">F</Button>
+                        <Button onClick={() => { updateValue("G") }} id="G" data-state="empty">G</Button>
+                        <Button onClick={() => { updateValue("H") }} id="H" data-state="empty">H</Button>
+                        <Button onClick={() => { updateValue("J") }} id="J" data-state="empty">J</Button>
+                        <Button onClick={() => { updateValue("K") }} id="K" data-state="empty">K</Button>
+                        <Button onClick={() => { updateValue("L") }} id='L' data-state="empty">L</Button>
                     </ButtonGroup>
                 </div>
                 <div className='Keyboard-Row'>
                     <ButtonGroup variant="outlined" aria-label="outlined button group">
                         <Button onClick={checkWord}>ENTER</Button>
-                        <Button onClick={() => { updateValue("Z") }}>Z</Button>
-                        <Button onClick={() => { updateValue("X") }}>X</Button>
-                        <Button onClick={() => { updateValue("C") }}>C</Button>
-                        <Button onClick={() => { updateValue("V") }}>V</Button>
-                        <Button onClick={() => { updateValue("B") }}>B</Button>
-                        <Button onClick={() => { updateValue("N") }}>N</Button>
-                        <Button onClick={() => { updateValue("M") }}>M</Button>
+                        <Button onClick={() => { updateValue("Z") }} id="Z" data-state="empty">Z</Button>
+                        <Button onClick={() => { updateValue("X") }} id="X" data-state="empty">X</Button>
+                        <Button onClick={() => { updateValue("C") }} id="C" data-state="empty">C</Button>
+                        <Button onClick={() => { updateValue("V") }} id="V" data-state="empty">V</Button>
+                        <Button onClick={() => { updateValue("B") }} id="B" data-state="empty">B</Button>
+                        <Button onClick={() => { updateValue("N") }} id="N" data-state="empty">N</Button>
+                        <Button onClick={() => { updateValue("M") }} id="M" data-state="empty">M</Button>
                         <Button onClick={clearValue}>BACK</Button>
                     </ButtonGroup>
                 </div>

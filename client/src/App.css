@@ -51,3 +51,15 @@
 .Tile[data-state=correct] {
   background-color: #538d4e;
 }
+
+button[data-state=absent] {
+  background-color: #3a3a3c;
+}
+
+button[data-state=present] {
+  background-color: #b5953b;
+}
+
+button[data-state=correct] {
+  background-color: #538d4e;
+}
