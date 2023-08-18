@@ -212,7 +212,7 @@ function Game() {
             </div>
             <div className='Keyboard'>
                 <div className='Keyboard-Row'>
-                    <ButtonGroup variant="outlined" aria-label="outlined button group">
+                    <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ paddingBottom: "10px" }}>
                         <Button onClick={() => { updateValue("Q") }}>Q</Button>
                         <Button onClick={() => { updateValue("W") }}>W</Button>
                         <Button onClick={() => { updateValue("E") }}>E</Button>
@@ -226,7 +226,7 @@ function Game() {
                     </ButtonGroup>
                 </div>
                 <div className='Keyboard-Row'>
-                    <ButtonGroup variant="outlined" aria-label="outlined button group">
+                    <ButtonGroup variant="outlined" aria-label="outlined button group" style={{ paddingBottom: "10px" }}>
                         <Button onClick={() => { updateValue("A") }}>A</Button>
                         <Button onClick={() => { updateValue("S") }}>S</Button>
                         <Button onClick={() => { updateValue("D") }}>D</Button>
