@@ -1,8 +1,11 @@
 import { Button, ButtonGroup, Grid } from '@mui/material'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { apiGetTodaysWord } from '../services/api';
 
-const todayWord = "BLAME"
+
 function Game() {
+
+    const [todayWord, setTodayWord] = useState("")
     const [found, setFound] = useState(false)
     const [counter, setCounter] = useState(0)
     const [row1, setRow1] = useState<string[]>([]);
@@ -46,6 +49,19 @@ function Game() {
             }
         }
     }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const response = await apiGetTodaysWord('/games/create');
+            setTodayWord(response);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
 
     function clearValue() {
