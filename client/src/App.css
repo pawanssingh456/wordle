@@ -5,38 +5,49 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.Tile {
+  font-family: "nyt-franklin";
+  width: 58px;
+  height: 58px;
+  position: relative;
+  margin: 2px 2px 0px 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1;
+  font-weight: bold;
+  vertical-align: middle;
+  box-sizing: border-box;
+  color: #ffffff;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: #b59f3b;
 }
 
-.card {
-  padding: 2em;
+.Tile::before {
+  content: "";
+  display: inline-block;
+  padding-bottom: 100%;
 }
 
-.read-the-docs {
-  color: #888;
+.Tile[data-state=empty] {
+  border: 2px solid #3a3a3c;
+  background-color: transparent;
+  color: #444;
+}
+
+.Tile[data-state=absent] {
+  background-color: #3a3a3c;
+}
+
+.Tile[data-state=present] {
+  background-color: #b5953b;
+}
+
+.Tile[data-state=correct] {
+  background-color: #538d4e;
 }
