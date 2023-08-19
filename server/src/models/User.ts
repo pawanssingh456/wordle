@@ -6,14 +6,16 @@ export interface User extends Document {
   name: string;
   email: string;
   password: string;
-  completedGames: number;
+  won: number;
+  lost: number;
 }
 
 const userSchema: Schema<User> = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  completedGames: { type: Number, default: 0 },
+  won: { type: Number, default: 0 },
+  lost: { type: Number, default: 0 },
 });
 
 // Password hashing middleware

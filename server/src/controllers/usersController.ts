@@ -49,7 +49,9 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     const newUser: User = await UserModel.create({ name, email, password });
-    return res.status(201).json({ _id: newUser._id, name: newUser.name, email: newUser.email });
+    // Generate JWT token
+    const token = generateToken({ _id: newUser._id, name: newUser.name, email: newUser.email });
+    return res.status(201).json({ token });
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
   }
@@ -68,7 +70,7 @@ export const logoutUser = (req: Request, res: Response) => {
   }
 
   // Revoke the token (remove it from the token list and add it to the blacklist)
-  revokeToken(token);
+  // revokeToken(token);
 
   // Respond with a success message
   res.status(200).json({ message: 'Logout successful' });
